@@ -30,3 +30,14 @@ func init() {
 		panic(err)
 	}
 }
+
+func Info(msg string, tags ...zap.Field) {
+	Log.Info(msg, tags...)
+	Log.Sync()
+}
+
+func Error(msg string, err error, tags ...zap.Field) {
+	tags = append(tags, zap.NamedError("error", err))
+	Log.Error(msg, tags...)
+	Log.Sync()
+}
